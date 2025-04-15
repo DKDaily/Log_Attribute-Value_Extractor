@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log Parser Pro</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Log Parser Pro</h1>
+        <div class="log-type-selector">
+            <label for="logType">Log Type:</label>
+            <select id="logType">
+                <option value="keyvalue">Key-Value Logs</option>
+                <option value="xml">XML Logs</option>
+            </select>
+        </div>
+        <div class="columns">
+            <div class="input-column">
+                <label for="inputBox">Input:</label>
+                <div class="textarea-wrapper">
+                    <textarea id="inputBox" placeholder="Paste your log data here..."></textarea>
+                    <button id="copyInputIcon" class="icon-button" title="Copy Input">📋</button>
+                </div>
+                <div class="buttons">
+                    <button id="convertBtn">Convert</button>
+                    <button id="clearInputBtn">Clear Input</button>
+                </div>
+            </div>
+            <div class="output-column">
+                <label for="outputBox">Output:</label>
+                <div class="textarea-wrapper">
+                    <textarea id="outputBox" readonly placeholder="Converted output will appear here..."></textarea>
+                    <button id="copyOutputIcon" class="icon-button" title="Copy Output">📋</button>
+                </div>
+                <div class="buttons">
+                    <button id="clearBtn">Clear Output</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

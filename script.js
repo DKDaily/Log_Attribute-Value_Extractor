@@ -1,73 +1,115 @@
-document.addEventListener('DOMContentLoaded', function () {
-    const inputBox = document.getElementById('inputBox');
-    const outputBox = document.getElementById('outputBox');
-    const convertBtn = document.getElementById('convertBtn');
-    const copyInputIcon = document.getElementById('copyInputIcon');
-    const copyOutputIcon = document.getElementById('copyOutputIcon');
-    const clearInputBtn = document.getElementById('clearInputBtn');
-    const clearBtn = document.getElementById('clearBtn');
-    const logType = document.getElementById('logType');
+body {
+    font-family: Arial, sans-serif;
+    background-color: #121212;
+    color: #e0e0e0;
+    margin: 0;
+    padding: 20px;
+}
 
-    convertBtn.addEventListener('click', function () {
-        const inputText = inputBox.value.trim();
-        let output;
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
 
-        if (logType.value === 'keyvalue') {
-            output = parseKeyValueLogs(inputText);
-        } else {
-            output = parseXMLLogs(inputText);
-        }
+h1 {
+    color: #ff8c00;
+    text-align: center;
+    margin-bottom: 20px;
+}
 
-        outputBox.value = output;
-    });
+.log-type-selector {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    gap: 10px;
+}
 
-    copyInputIcon.addEventListener('click', function () {
-        inputBox.select();
-        document.execCommand('copy');
-        showFeedback(copyInputIcon, '📋 Copied!');
-    });
+label {
+    color: #ff8c00;
+    font-weight: bold;
+}
 
-    copyOutputIcon.addEventListener('click', function () {
-        outputBox.select();
-        document.execCommand('copy');
-        showFeedback(copyOutputIcon, '📋 Copied!');
-    });
+select {
+    padding: 8px;
+    border-radius: 4px;
+    background-color: #2d2d2d;
+    color: #e0e0e0;
+    border: 1px solid #444;
+}
 
-    clearInputBtn.addEventListener('click', function () {
-        inputBox.value = '';
-    });
+.columns {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+}
 
-    clearBtn.addEventListener('click', function () {
-        outputBox.value = '';
-    });
+.input-column, .output-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
 
-    function parseKeyValueLogs(text) {
-        const regex = /([\w-]+)=(.*?)(?=\s+[\w-]+=|$)/g;
-        const matches = [];
-        let match;
+.textarea-wrapper {
+    position: relative;
+}
 
-        while ((match = regex.exec(text)) !== null) {
-            matches.push(`${match[1]} = ${match[2].trim()}`);
-        }
+textarea {
+    width: 100%;
+    height: 300px;
+    padding: 10px;
+    padding-right: 40px;
+    border: 1px solid #444;
+    border-radius: 4px;
+    background-color: #2d2d2d;
+    color: #e0e0e0;
+    font-family: monospace;
+    resize: none;
+    box-sizing: border-box;
+}
 
-        return matches.join('\n');
+.icon-button {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: #ff8c00;
+    cursor: pointer;
+}
+
+.icon-button:hover {
+    color: #ff9e3d;
+}
+
+.buttons {
+    margin-top: 10px;
+    display: flex;
+    gap: 10px;
+}
+
+button {
+    background-color: #ff8c00;
+    color: #121212;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    flex: 1;
+}
+
+button:hover {
+    background-color: #ff9e3d;
+}
+
+#outputBox {
+    background-color: #252525;
+}
+
+@media (max-width: 768px) {
+    .columns {
+        flex-direction: column;
     }
-
-    function parseXMLLogs(text) {
-        const matches = [];
-        const tagValueRegex = /<([a-zA-Z0-9_]+)>([^<>]+)<\/\1>/g;
-        let match;
-        while ((match = tagValueRegex.exec(text)) !== null) {
-            matches.push(`${match[1]} = ${match[2].trim()}`);
-        }
-        return matches.join('\n');
-    }
-
-    function showFeedback(button, message) {
-        const originalText = button.textContent;
-        button.textContent = message;
-        setTimeout(() => {
-            button.textContent = originalText;
-        }, 1500);
-    }
-});
+}
